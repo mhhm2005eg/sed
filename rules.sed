@@ -12,8 +12,16 @@
 :loop
 
 # This line is sufficient to remove C++ comments!
-/^\/\// s,.*,,
-#/^$/b break
+/^\s*$/{
+#d
+#p
+#n
+#b loop
+}
+/^\/\// {
+s,.*,,
+#d
+}
 /^$/{
   x
   p
@@ -80,6 +88,7 @@
   /^$/ n
   /^\*\//{
     s/..//
+	d
     b loop
   }
   b ccom
